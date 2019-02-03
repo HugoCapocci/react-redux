@@ -6,6 +6,17 @@ const defaultState = {
 
 function reducer(state = defaultState, action) {
   switch (action.type) {
+    case 'ADD_LINE':
+      return {
+        lines: [
+          ...state.lines,
+          action.payload
+        ]
+      };
+    case 'CLEAR_LINES':
+      return {
+        lines: []
+      };
     default:
       return state;
   }
