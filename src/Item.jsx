@@ -1,11 +1,25 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-export default class Item extends Component {
+import { addLine } from './actions';
+
+export class Item extends Component {
   static defaultProps = {
     label: 'ITEM'
   };
   render() {
-    // TODO add `render Item Component with id ${this.props.id}` to logs
+    this.props.addLine();
     return <div>{this.props.label} { this.props.id }</div>
   }
 }
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  addLine: () => {
+    dispatch(addLine(`render Item Component with id ${ownProps.id}`))
+  }
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Item);

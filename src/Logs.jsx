@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import { clearLines } from './actions';
 
 import './Logs.css';
 
-export default class Logs extends Component<Props> {
+export class Logs extends Component<Props> {
   inputRef = React.createRef();
 
   componentDidUpdate() {
@@ -14,7 +17,7 @@ export default class Logs extends Component<Props> {
       <div className="logs">
         <div className="logs-header">
           <span>Output logs:</span>
-          <input type="button" value="clear" onClick={() => {}} />
+          <input type="button" value="clear" onClick={() => { this.props.clearLines() }} />
         </div>
         <div className="logs-body" ref={this.inputRef}>
           {this.props.lines && this.props.lines.map(({ content, type }, index) =>
@@ -25,3 +28,14 @@ export default class Logs extends Component<Props> {
     )
   }
 }
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  clearLines: () => {
+    dispatch(clearLines())
+  }
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Logs);
