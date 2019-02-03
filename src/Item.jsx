@@ -7,6 +7,7 @@ export class Item extends Component {
   static defaultProps = {
     label: 'ITEM'
   };
+
   render() {
     this.props.addLine();
     return <div>{this.props.label} { this.props.id }</div>

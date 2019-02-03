@@ -20,8 +20,8 @@ export class Logs extends Component<Props> {
           <input type="button" value="clear" onClick={() => { this.props.clearLines() }} />
         </div>
         <div className="logs-body" ref={this.inputRef}>
-          {this.props.lines && this.props.lines.map(({ content, type }, index) =>
-            <div key={index} className={type}>{content}</div> 
+          {this.props.lines && this.props.lines.map(({ content }, index) =>
+            <div key={index}>{content}</div> 
           )}
         </div>
       </div>
@@ -29,13 +29,17 @@ export class Logs extends Component<Props> {
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapStateToProps = (state) => ({
+  lines: state.lines
+});
+
+const mapDispatchToProps = (dispatch) => ({
   clearLines: () => {
     dispatch(clearLines())
   }
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Logs);
