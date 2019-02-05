@@ -1,4 +1,5 @@
-import { createStore } from 'redux';
+import thunk from 'redux-thunk'
+import { createStore, applyMiddleware, compose } from 'redux';
 
 const defaultState = {
   lines: []
@@ -8,6 +9,7 @@ function reducer(state = defaultState, action) {
   switch (action.type) {
     case 'ADD_LINE':
       return {
+        ...state,
         lines: [
           ...state.lines,
           action.payload
@@ -15,8 +17,14 @@ function reducer(state = defaultState, action) {
       };
     case 'CLEAR_LINES':
       return {
+        ...state,
         lines: []
       };
+    case 'USER':
+      return {
+        ...state,
+        user: action.payload
+      }
     default:
       return state;
   }
@@ -24,20 +32,22 @@ function reducer(state = defaultState, action) {
 
 const loadStore = () => {
   const stateAsJSON = localStorage.getItem('state');
-  return stateAsJSON ? JSON.parse(stateAsJSON) : null;
+  return stateAsJSON ? JSON.parse(stateAsJSON) : defaultState;
 };
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
   reducer,
   loadStore(),
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  composeEnhancers(
+    applyMiddleware(thunk)
+  )
 );
 
 const saveStore = (state) => {
   const stateAsJSON = JSON.stringify(state);
   localStorage.setItem('state', stateAsJSON);
 };
-
 
 store.subscribe(() => {
   saveStore(store.getState());

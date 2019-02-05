@@ -1,21 +1,30 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-export default class User extends Component {
-  state = {
-    userName: ''
-  };
+import { fetchUser } from './actions';
 
+export class User extends Component {
   componentDidMount() {
-    fetch('./user-data.json')
-    .then((response) => response.json())
-    .then(user => {
-      this.setState({
-        userName: user.name
-      });
-    });
+    this.props.fetchUser();
   }
 
   render() {
-    return <div>Bonjour, {this.state.userName}</div>;
+    return <div>Bonjour, {this.props.userName}</div>;
   }
 }
+
+const mapStateToProps = (state) => ({
+  userName: state.user ? state.user.name : ''
+})
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  fetchUser: () => {
+    dispatch(fetchUser())
+  }
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(User);
+
