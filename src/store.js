@@ -22,15 +22,22 @@ function reducer(state = defaultState, action) {
   }
 }
 
+const loadStore = () => {
+  const stateAsJSON = localStorage.getItem('state');
+  return stateAsJSON ? JSON.parse(stateAsJSON) : null;
+};
+
 const store = createStore(
   reducer,
+  loadStore(),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
 const saveStore = (state) => {
   const stateAsJSON = JSON.stringify(state);
   localStorage.setItem('state', stateAsJSON);
-}
+};
+
 
 store.subscribe(() => {
   saveStore(store.getState());
