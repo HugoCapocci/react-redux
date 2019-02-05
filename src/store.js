@@ -27,4 +27,13 @@ const store = createStore(
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
+const saveStore = (state) => {
+  const stateAsJSON = JSON.stringify(state);
+  localStorage.setItem('state', stateAsJSON);
+}
+
+store.subscribe(() => {
+  saveStore(store.getState());
+});
+
 export default store;
