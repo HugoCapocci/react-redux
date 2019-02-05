@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Logs from './Logs';
 import ItemBox from './ItemBox';
+import User from './User';
 
 import './App.css';
 
@@ -28,7 +29,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          Redux!
+          <User />
         </header>
         <Logs />
         <div className="container">
