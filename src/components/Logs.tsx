@@ -2,16 +2,11 @@ import React, { Component } from 'react';
 
 import './Logs.css';
 
-export interface Line {
-    content: string,
-    type: string
+export interface LogsProps {
+  lines: string[]
 }
 
-export interface LogsPros {
-     lines: Array<Line>
-}
-
-export default class Logs extends Component<LogsPros> {
+export default class Logs extends Component<LogsProps> {
   // see https://medium.com/@martin_hotell/react-refs-with-typescript-a32d56c4d315
   private inputRef = React.createRef<HTMLDivElement>();
 
@@ -28,8 +23,8 @@ export default class Logs extends Component<LogsPros> {
           <input type="button" value="clear" onClick={() => {}} />
         </div>
         <div className="logs-body" ref={this.inputRef}>
-          {this.props.lines && this.props.lines.map(({ content, type }, index) =>
-            <div key={index} className={type}>{content}</div> 
+          {this.props.lines && this.props.lines.map((content, index) =>
+            <div key={index}>{content}</div>
           )}
         </div>
       </div>
