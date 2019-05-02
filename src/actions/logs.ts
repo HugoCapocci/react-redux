@@ -1,10 +1,10 @@
-import { ADD_LINE, CLEAR_LINES, LogsActionTypes } from './../types/logs'
+import { ADD_LINE, CLEAR_LINES, LogsActionTypes } from './../types/logs';
 
-export const addLineAction = (content: string): LogsActionTypes => ({
+export const addLine = (content: string): LogsActionTypes => ({
   type: ADD_LINE,
   payload: content
 });
 
-export const clearLinesAction = (): LogsActionTypes => ({
+export const clearLines = (): LogsActionTypes => ({
   type: CLEAR_LINES
 });
