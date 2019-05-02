@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 
 import { clearLines } from '../actions/logs';
 import { LogsActionTypes } from '../types/logs';
-
+import { ReduxState } from '../store';
 import './Logs.css';
 
-export interface LogsProps {
+export interface StateProps {
   lines: string[];
 }
 
@@ -15,7 +15,7 @@ interface DispatchProps {
   clearLines: () => void;
 }
 
-type Props = LogsProps & DispatchProps;
+type Props = DispatchProps & StateProps;
 
 export class Logs extends Component<Props> {
   // see https://medium.com/@martin_hotell/react-refs-with-typescript-a32d56c4d315
@@ -43,13 +43,17 @@ export class Logs extends Component<Props> {
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<LogsActionTypes>, ownProps: LogsProps): DispatchProps => ({
+const mapStateToProps = (state: ReduxState) => ({
+  lines: state.lines
+})
+
+const mapDispatchToProps = (dispatch: Dispatch<LogsActionTypes>, ): DispatchProps => ({
   clearLines: () => {
     dispatch(clearLines())
   }
 });
 
-export default connect<{}, DispatchProps, LogsProps>(
-  null,
+export default connect<StateProps, DispatchProps, {}, ReduxState>(
+  mapStateToProps,
   mapDispatchToProps
 )(Logs);

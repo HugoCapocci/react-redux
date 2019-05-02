@@ -2,15 +2,15 @@
 
 import { LogsActionTypes, ADD_LINE, CLEAR_LINES } from './types/logs';
 
-export interface StateProps {
-  lines: Array<string>
+export interface ReduxState {
+  lines: string[];
 }
 
-const defaultState: StateProps = {
+const defaultState: ReduxState = {
   lines: []
 };
 
-function reducer(state = defaultState, action: LogsActionTypes): StateProps {
+function reducer(state = defaultState, action: LogsActionTypes): ReduxState {
   switch (action.type) {
     case ADD_LINE:
       return {
@@ -20,11 +20,10 @@ function reducer(state = defaultState, action: LogsActionTypes): StateProps {
         ]
       };
     case CLEAR_LINES:
+    default:
       return {
         lines: []
       };
-    default:
-      return state;
   }
 }
 
