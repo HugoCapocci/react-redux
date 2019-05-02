@@ -1,0 +1,21 @@
+.logs-header {
+    padding: 5px;
+    background-color: lightgray;
+
+}
+.logs-header > span {
+    margin-right: 5px;
+}
+
+.logs-header > input {
+    background-color: brown;
+    color: white;
+    border-radius: 5px;
+    border: 0;
+}
+
+.logs-body {
+    border: 1px solid black;
+    height: 200px;
+    overflow-y: auto;
+}
