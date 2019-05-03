@@ -26,10 +26,25 @@ function reducer(state = defaultState, action: LogsActionTypes) {
   }
 }
 
+const saveStore = (state: ReduxState) => {
+  const stateAsJSON = JSON.stringify(state);
+  localStorage.setItem('state', stateAsJSON);
+};
+
+const loadStore = () => {
+  const stateFromStorage = localStorage.getItem('state');
+  return stateFromStorage ? JSON.parse(stateFromStorage) : null;
+};
+
 const store = createStore(
   reducer,
+  loadStore(),
   // @ts-ignore
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-)
+);
+
+store.subscribe(() => {
+  saveStore(store.getState());
+});
 
 export default store;

@@ -45,7 +45,7 @@ export class Logs extends Component<DispatchProps & StateProps> {
 const mapStateToProps = (state: ReduxState): StateProps => {
   return {
     lines: state.lines
-  }
+  };
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<LogsActionTypes>, ownProps: {}): DispatchProps => {
@@ -53,7 +53,7 @@ const mapDispatchToProps = (dispatch: Dispatch<LogsActionTypes>, ownProps: {}): 
     ownClearLines: () => {
       dispatch(clearLines())
     }
-  }
+  };
 }
 
 export default connect<StateProps, DispatchProps, {}, ReduxState>(
