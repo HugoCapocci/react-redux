@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
+
+import { clearLines } from '../actions/logs';
 
 import './Logs.css';
+import { LogsActionTypes } from '../types/logs';
 
-export interface Line {
-    content: string,
-    type: string
+export interface LogsProps {
+  lines: string[];
 }
 
-export interface LogsPros {
-     lines: Array<Line>
+interface DispatchProps {
+  ownClearLines: () => void
 }
 
-export default class Logs extends Component<LogsPros> {
+export class Logs extends Component<LogsProps & DispatchProps> {
   // see https://medium.com/@martin_hotell/react-refs-with-typescript-a32d56c4d315
   private inputRef = React.createRef<HTMLDivElement>();
 
@@ -25,14 +29,27 @@ export default class Logs extends Component<LogsPros> {
       <div className="logs">
         <div className="logs-header">
           <span>Output logs:</span>
-          <input type="button" value="clear" onClick={() => {}} />
+          <input type="button" value="clear" onClick={() => { this.props.ownClearLines() }} />
         </div>
         <div className="logs-body" ref={this.inputRef}>
-          {this.props.lines && this.props.lines.map(({ content, type }, index) =>
-            <div key={index} className={type}>{content}</div> 
+          {this.props.lines && this.props.lines.map((content, index) =>
+            <div key={index}>{content}</div>
           )}
         </div>
       </div>
     )
   }
 }
+
+const mapDispatchToProps = (dispatch: Dispatch<LogsActionTypes>, ownProps: LogsProps): DispatchProps => {
+  return {
+    ownClearLines: () => {
+      dispatch(clearLines())
+    }
+  }
+}
+
+export default connect<{}, DispatchProps, LogsProps>(
+  null,
+  mapDispatchToProps
+)(Logs);
