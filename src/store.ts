@@ -1,6 +1,6 @@
 import { createStore } from 'redux';
 
-import { LogsActionTypes } from './types/logs'; 
+import { LogsActionTypes, ADD_LINE, CLEAR_LINES } from './types/logs'; 
 
 export interface ReduxState {
   lines: string[];
@@ -12,6 +12,15 @@ const defaultState: ReduxState = {
 
 function reducer(state = defaultState, action: LogsActionTypes) {
   switch(action.type) {
+    case ADD_LINE:
+      return {
+        lines: [
+          ...state.lines,
+          action.payload
+        ]
+      }
+    case CLEAR_LINES:
+      return defaultState;
     default: 
       return state;
   }
