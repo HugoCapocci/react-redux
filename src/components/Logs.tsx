@@ -6,8 +6,9 @@ import { clearLines } from '../actions/logs';
 
 import './Logs.css';
 import { LogsActionTypes } from '../types/logs';
+import { ReduxState } from '../store';
 
-export interface LogsProps {
+export interface StateProps {
   lines: string[];
 }
 
@@ -15,7 +16,7 @@ interface DispatchProps {
   ownClearLines: () => void
 }
 
-export class Logs extends Component<LogsProps & DispatchProps> {
+export class Logs extends Component<DispatchProps & StateProps> {
   // see https://medium.com/@martin_hotell/react-refs-with-typescript-a32d56c4d315
   private inputRef = React.createRef<HTMLDivElement>();
 
@@ -41,7 +42,13 @@ export class Logs extends Component<LogsProps & DispatchProps> {
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<LogsActionTypes>, ownProps: LogsProps): DispatchProps => {
+const mapStateToProps = (state: ReduxState): StateProps => {
+  return {
+    lines: state.lines
+  }
+}
+
+const mapDispatchToProps = (dispatch: Dispatch<LogsActionTypes>, ownProps: {}): DispatchProps => {
   return {
     ownClearLines: () => {
       dispatch(clearLines())
@@ -49,7 +56,7 @@ const mapDispatchToProps = (dispatch: Dispatch<LogsActionTypes>, ownProps: LogsP
   }
 }
 
-export default connect<{}, DispatchProps, LogsProps>(
-  null,
+export default connect<StateProps, DispatchProps, {}, ReduxState>(
+  mapStateToProps,
   mapDispatchToProps
 )(Logs);

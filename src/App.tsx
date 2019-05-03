@@ -35,7 +35,7 @@ export default class App extends Component<{}, AppState> {
       <div className="App">
         <header className="App-header">
         </header>
-        <Logs lines={[]} />
+        <Logs />
       <div className="container">
       <div className="components">
         <label htmlFor="itemBoxSize">Nb Components:</label>
