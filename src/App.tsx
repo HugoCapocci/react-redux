@@ -3,8 +3,14 @@ import './App.css';
 
 import Logs from './components/Logs';
 import ItemBox from './components/ItemBox';
+import { number } from 'prop-types';
 
-export default class App extends Component {
+interface AppState {
+  itemBoxSize: number;
+  itemsLabel: string;
+}
+
+export default class App extends Component<{}, AppState> {
   state = {
     itemBoxSize: 3,
     itemsLabel: 'ITEM',
