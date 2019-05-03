@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, FormEvent } from 'react';
 import './App.css';
 
 import Logs from './components/Logs';
 import ItemBox from './components/ItemBox';
-import { number } from 'prop-types';
 
 interface AppState {
   itemBoxSize: number;
@@ -14,6 +13,21 @@ export default class App extends Component<{}, AppState> {
   state = {
     itemBoxSize: 3,
     itemsLabel: 'ITEM',
+  }
+
+  onChangeSize = (event: FormEvent<HTMLInputElement>) => {
+    const currentTarget = event.currentTarget;
+    const value = parseInt(currentTarget.value, 10);
+    if (isNaN(value)) return;
+    this.setState({
+      itemBoxSize: value
+    });
+  }
+
+  onChangeLabel = ({ currentTarget }: FormEvent<HTMLInputElement>) => {
+    this.setState({
+      itemsLabel: currentTarget.value
+    });
   }
 
   render() {
@@ -30,6 +44,7 @@ export default class App extends Component<{}, AppState> {
           name="itemBoxSize"
           id="itemBoxSize"
           value={this.state.itemBoxSize}
+          onChange={this.onChangeSize}
           />
         <label htmlFor="itemsLabel">Label:</label>
         <input
@@ -37,6 +52,7 @@ export default class App extends Component<{}, AppState> {
           name="itemsLabel"
           id="itemsLabel"
           value={this.state.itemsLabel}
+          onChange={this.onChangeLabel}
           />
         <ItemBox size={this.state.itemBoxSize} itemsLabel={this.state.itemsLabel} />
       </div>
