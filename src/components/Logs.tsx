@@ -44,7 +44,7 @@ export class Logs extends Component<DispatchProps & StateProps> {
 
 const mapStateToProps = (state: ReduxState): StateProps => {
   return {
-    lines: state.lines
+    lines: state.logs.lines
   };
 }
 
