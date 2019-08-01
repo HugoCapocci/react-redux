@@ -10,7 +10,7 @@ export interface ItemProps {
     id: number
 }
 
-interface DispatchProps {
+export interface DispatchProps {
   ownAddLine: (line: string) => void
 }
 
@@ -19,7 +19,7 @@ export class Item extends Component<ItemProps & DispatchProps> {
     label: 'ITEM'
   };
   render() {
-    this.props.ownAddLine(`render Item Component with id ${this.props.id}`);
+    this.props.ownAddLine(`render Item Component with id: ${this.props.id}`);
     return <div>{this.props.label} { this.props.id }</div>
   }
 }
